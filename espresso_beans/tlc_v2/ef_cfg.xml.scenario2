@@ -1,0 +1,20 @@
+<epifast>
+<!--   <epifast_bin>/home/sandeep/NDSSL-Software/epifast/branches/bin/EpiFast_Indemics</epifast_bin> -->
+  <epifast_bin>&var_epifast_exec_path;</epifast_bin>
+  <mpi_module>&var_mpi_module;</mpi_module>
+  <num_nodes>&var_epifast_num_nodes;</num_nodes>
+  <host_type>&var_epifast_host_type;</host_type>
+  <walltime>&var_epifast_walltime;</walltime>
+  <Diagnosis> 
+    <ModelVersion>2009</ModelVersion>
+    <ProbSymptomaticToHospital>1.0</ProbSymptomaticToHospital>
+    <ProbDiagnoseSymptomatic>1.0</ProbDiagnoseSymptomatic>
+    <DiagnosedDuration>6</DiagnosedDuration>
+  </Diagnosis>
+  <transmissibility>0.000058</transmissibility>
+  <asymptomatic_probability>0.3333</asymptomatic_probability>
+  <asymptomatic_factor>0.7</asymptomatic_factor>
+  <simulation_duration>&var_simulation_duration;</simulation_duration>
+    <offline_intv_path>&var_cfg_dir;/ef_offline_&var_scenario;.cfg</offline_intv_path>
+</epifast>
+

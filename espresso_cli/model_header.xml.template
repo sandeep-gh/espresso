@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE epistudy [
+	  $common_header
+	  <!ENTITY var_region "$pvar_region">
+	  <!ENTITY var_study "$pvar_study">
+	  <!ENTITY var_model_base_dir "$pvar_model_base_dir">
+	  <!--
+	      defined relative to base dir
+	    -->
+	  $common_model_header
+	  ]>

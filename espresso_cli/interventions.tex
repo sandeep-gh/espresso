@@ -1,0 +1,60 @@
+\documentclass{book}
+\input{latex_utils/preamble.tex}
+\newcommand{\rid}{\{rep\_id\}}
+\begin{document}
+\title{A compendium of case studies implemented using dicex epistudy} 
+% Network Dynamics and Simulation Science Laboratory\\
+%   Biocomplexity Institute of Virginia Tech\\
+%   Virginia Tech\\
+%   Blacksburg, VA, 24061\\
+%% \author{Gupta, Sandeep\\
+%%     \texttt{sandeep@vbi.vt.edu}
+%% \and
+%%   Cedeño, Vanessa\\
+%%   \texttt{vanessaicm@gmail.com}
+%% }
+
+\maketitle
+\tableofcontents
+
+\chapter{Introduction}
+\textbf{Modeling Interventions using Tables}: The data stored in the database can be classified into two main types: base and dynamic.
+Base tables contain data corresponding to the demographic attributes associated with an individual or social contact network that represents 
+the interaction between people. Dynamic tables contain temporal data (also known as dendogram) about the disease transmission network i.e. information about 
+when an individual gets infected, individual who transmitted the infection, and so forth.  \\
+
+\begin{table}[!ht]
+\begin{center} 
+\caption{Epidemiological case studies}
+\label{table:Epidemiological case studies}
+\begin{tabular}{|c|c|}
+	\hline 
+ \textbf{Intervention Study} & \textbf{Description} \\ \hline
+ Targeted  & provide antiviral to diagnosed people \\ \hline
+ Triggered & apply intervention to protect some subpopulation universally \\ \hline
+ Household & all household members take preventive actions if anyone in \\
+					 & the household is diagnosed \\ \hline
+ Sick leave       & the diagnosed employees in the companies complying the policy \\ 
+	(honest case) 	& will stay at home from the diagnosis day to the recovering day \\ \hline 	
+ Sick leave       & the diagnosed employees in the companies complying the policy \\
+	(rational case) & will stay at home for the max sick-leave period \\ \hline
+ Block & vaccinate all people in any block if the fraction of diagnosed \\ 
+			 & people in that block exceeds some threshold \\ \hline
+ School & close any school if the fraction of diagnosed students exceeds 5\% \\ \hline
+ Distance-1 & close any school if the fraction of diagnosed students exceeds 5\% \\ \hline
+\end{tabular} 
+\end{center}
+\end{table}
+
+\section{Terminologies and Notations}
+\begin{description}
+\item[Variables:] Variables are presented within enclosed curly braces as  \{var\}.
+\item[{\rid}]: Denotes the id of a replicate.
+\item[base tables]:
+\item[dynamic tables]:
+\end{description}
+
+\input{block/block.tex}
+%\input{school/school.tex}
+%\input{d1/d1.tex}
+\end{document}

@@ -1,0 +1,82 @@
+\usepackage{tikz}
+\usepackage{forest}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes,snakes,backgrounds,arrows}
+\usetikzlibrary{positioning,fit,calc}
+\usetikzlibrary{shapes,shadows}
+\usetikzlibrary{shapes,snakes,backgrounds,arrows,shadows}
+\usetikzlibrary{intersections}
+\usepgfmodule{decorations}
+\usetikzlibrary{decorations.shapes}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{decorations.text}
+\usetikzlibrary{fadings}%
+\usetikzlibrary{tikzmark,shapes.geometric}
+\usetikzlibrary{backgrounds,shadings,shapes.arrows,shapes.symbols,shadows}
+\usetikzlibrary{shapes,snakes}
+\usetikzlibrary{shadings, shadows}
+\usetikzlibrary{backgrounds,shadings,shapes.arrows,shapes.symbols,shadows,arrows}
+\usetikzlibrary{positioning,fit}
+\definecolor{mybluei}{RGB}{175, 213, 224}
+\definecolor{myblueii}{RGB}{73,121,193}
+\definecolor{mygreen}{RGB}{202,217,126}
+\definecolor{mypink}{RGB}{233,198,235}
+\definecolor{arrowcolor1}{cmyk}{0.16,0.02,0.0,.08} 
+\definecolor{arrowcolor2}{cmyk}{0.31,0.09,0.0,.21} 
+
+\definecolor{folderbg}{RGB}{124,166,198}
+\definecolor{folderborder}{RGB}{110,144,169}
+\def\Size{4pt}
+\tikzset{
+  folder/.pic={
+    \filldraw[draw=folderborder,top color=folderbg!50,bottom color=folderbg]
+      (-1.05*\Size,0.2\Size+5pt) rectangle ++(.75*\Size,-0.2\Size-5pt);  
+    \filldraw[draw=folderborder,top color=folderbg!50,bottom color=folderbg]
+      (-1.15*\Size,-\Size) rectangle (1.15*\Size,\Size);
+  }
+}
+
+\input{arrowsnew}
+\tikzset{
+blueb/.style={
+  draw=mybluei,
+  fill=mybluei!50!white,
+  rounded corners,
+  text width=5.5cm,
+  font={\bfseries},
+  align=center,
+  align=center,
+  text height=18pt,
+  text depth=13pt,
+  inner sep=6pt,
+  thick,
+ },
+sources/.style={
+  draw=mybluei,
+  fill=mybluei!50!white,
+  rounded corners,
+  minimum width=2.0cm,
+  minimum height=1.0cm,
+  text width=3.5cm,
+  align=center,
+  align=center,
+  inner sep=0pt,
+  thick,
+ },
+textbox/.style={
+  draw=mybluei,
+  fill=white,
+  rounded corners,
+  minimum width=2.cm,
+  minimum height=1.0cm,
+  text width=3.5cm,
+  align=left,
+  inner sep=6pt,
+  thick,
+ },
+labelbox/.style={
+  text width=5.5cm,
+  font={\small},
+},
+post/.style={opacity=0.6, line width=4pt, -latexnew, arrowhead=4mm, draw=arrowcolor2},
+}

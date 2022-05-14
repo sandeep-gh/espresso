@@ -1,0 +1,20 @@
+* ISSUES
+** Incubation.Period.Distribution
+** Infectious.Period.Distribution
+** SimulationDuration
+** IterationNumber
+
+* TODO
+** How can we iterate over Diagnosis variables
+
+
+
+
+* Refactor out daily intervention  business
+
+   
+
+   
+* analysis terminologies
+  sweep_params : all parameters over which the sweep is performed
+  cell_attrs: sweep_params but without the replicate id

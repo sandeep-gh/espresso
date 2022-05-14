@@ -1,0 +1,34 @@
+<root xmlns:xi="http://www.w3.org/2001/XInclude">
+  <system>
+    <session>&var_session;</session>
+    <session_run_dir>&var_session_run_dir;</session_run_dir>
+    <epistudy_config_base_dir>&var_cfg_base_dir;</epistudy_config_base_dir>
+    <metadata_dir>&var_metadata_dir;</metadata_dir>
+    <template_dir>templates</template_dir>  
+    <dicex_base_dir>&var_dicex_base_dir;</dicex_base_dir>
+    <indemics_dir>&var_dicex_base_dir;/&var_devel;/indemics_server</indemics_dir>
+    <data_engine>
+      <engine_type>pgsa</engine_type>
+      <dbsession>&var_session;_dataengine</dbsession>
+      <walltime>&var_db_job_walltime;</walltime>
+      <cluster_qsub>
+	<group_list>&var_db_job_group;</group_list>
+	<qsub_q>&var_db_job_queue;</qsub_q>
+	<qsub_ppn>&var_db_job_ppn;</qsub_ppn>
+	<host_type>&var_db_host_type;</host_type>
+      </cluster_qsub>
+    </data_engine>
+
+    <indemics_server>
+      <max_threads>8</max_threads>
+      <walltime>&var_indemics_server_job_walltime;</walltime>
+      <cluster_qsub>
+        <group_list>&var_indemics_server_job_group;</group_list>
+        <qsub_q>&var_indemics_server_job_queue;</qsub_q>
+        <qsub_ppn>&var_indemics_server_job_ppn;</qsub_ppn>
+	<host_type>&var_indemics_server_host_type;</host_type>
+      </cluster_qsub>
+    </indemics_server>
+
+  </system>
+</root>

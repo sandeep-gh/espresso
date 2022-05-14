@@ -1,0 +1,7 @@
+<!ENTITY var_session "$pvar_session">
+<!ENTITY var_session_run_dir "$pvar_session_run_dir">
+<!ENTITY var_dicex_base_dir "$pvar_dicex_dir">
+<!ENTITY var_devel "$pvar_devel">
+<!ENTITY var_model_base_dir "$pvar_model_base_dir">
+<!ENTITY var_cfg_base_dir "$pvar_config_base_dir">
+<!ENTITY var_metadata_dir "&var_dicex_base_dir;/dicex_metadata_repo">

@@ -1,0 +1,37 @@
+<edcfg>
+  <files>
+    <file>
+      <location>&var_model_dir;/person_info</location>
+      <model_name>&var_model_prefix;person_info</model_name>
+      <metadata>&var_metadata_dir;/person_info.md</metadata>
+      <filetype>
+	<filetype>csv</filetype>
+	<strict_formatted>True</strict_formatted>
+	<delimiter>pipe</delimiter>
+      </filetype>
+    </file>
+    <file>
+      <location>&var_model_dir;/worker.txt</location>
+      <model_name>&var_model_prefix;worker</model_name>
+      <metadata>&var_metadata_dir;/worker.md</metadata>
+      <filetype>
+	<filetype>csv</filetype>
+	<strict_formatted>True</strict_formatted>
+	<delimiter>comma</delimiter>
+      </filetype>
+    </file>
+    <file>
+      <location>&var_model_dir;/student</location>
+      <model_name>&var_model_prefix;student</model_name>
+      <metadata>&var_metadata_dir;/student.md</metadata>
+      <filetype>
+	<filetype>csv</filetype>
+	<strict_formatted>True</strict_formatted>
+	<delimiter>pipe</delimiter>
+      </filetype>
+
+    </file>
+  </files>
+
+
+</edcfg>

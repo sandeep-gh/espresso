@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE epistudy [
+	  <!ENTITY var_study_run_dir "$pvar_study_run_dir">
+	  <!ENTITY var_region "$pvar_region">
+	  <!ENTITY var_intv_type "$pvar_intv_type">
+	  <!ENTITY var_scenario "$pvar_scenario">
+	  <!ENTITY var_dicex_base_dir "$pvar_dicex_dir">
+	  <!ENTITY var_devel "$pvar_devel">
+	  <!ENTITY var_model_base_dir "/sfxgroups/NDSSL/espresso_model_data/">
+	  
+	  <!ENTITY var_db_job_group "$pvar_db_job_group">
+	  <!ENTITY var_db_job_queue "$pvar_db_job_queue">
+	  <!ENTITY var_db_job_walltime "$pvar_db_job_walltime">
+	  <!ENTITY var_db_job_ppn "$pvar_db_job_ppn">
+	  
+	  <!ENTITY var_indemics_server_job_group "$pvar_indemics_server_job_group">
+	  <!ENTITY var_indemics_server_job_queue "$pvar_indemics_server_job_queue">
+	  <!ENTITY var_indemics_server_job_walltime "$pvar_indemics_server_job_walltime">
+	  <!ENTITY var_indemics_server_job_ppn "$pvar_indemics_server_job_ppn">
+
+	  <!ENTITY var_epifast_walltime "$pvar_epifast_walltime">
+	  <!ENTITY var_simulation_duration "$pvar_simulation_duration">
+
+	  
+	  <!--
+	      defined relative to base dir
+	    -->
+	<!--   <!ENTITY var_cfg_base_dir "&var_dicex_base_dir;/epistudy_configs"> -->
+	  <!ENTITY var_cfg_dir "&var_cfg_base_dir;/&var_intv_type;">
+	  <!ENTITY var_metadata_dir "&var_dicex_base_dir;/dicex_metadata_repo">
+	  <!ENTITY var_model_dir "&var_model_base_dir;/&var_region;">
+	  
+
+	  $study_directives
+	  ]>

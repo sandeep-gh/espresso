@@ -1,0 +1,51 @@
+The edges of the contact network  are labeled. 
+For epifast, the labels have to be a number from 1 till 5. 
+The meaning of the labels is dependent upon contact. 
+For synthetic population 1 implies household edges,
+2 imples work edges, 3 is school edges and so on.
+
+But some other network can place different meaning 
+to the edges. For the zika network: 
+1 is a morning edge
+2 is an afternoon edge
+3 is an evening edge
+and 
+4 is a night edge.
+
+In addition to predefined interventions "such as school closure, work closure" 
+there is way to arbitrary change the weights of the edge for each type.
+The set intervention directive looks as follows:
+    	echo "set interventions: <intv-id>,<intv_type>,<compliance>,<duration>,<delay>,0.1#0.2#0.3#0.4#0.5,0.9#0.10#0.20#0.30#0.40, select lid from grid_locations where lid> 0 order by random() limit 10;"
+
+
+The <intv-id> is an indentifier. One ususally a sequence from 0.
+The <intv-type> is the type of intervention. For generic it is 8. 
+<compliance>,<duration>,<delay> have their usual meaning
+
+This is the main argument of generic intervention:
+0.1#0.2#0.3#0.4#0.5,0.9#0.10#0.20#0.30#0.40
+
+It is two sets of strings:
+0.1#0.2#0.3#0.4#0.5
+and
+0.9#0.10#0.20#0.30#0.40
+
+Both are five float values separate by delimiter "#"
+
+The first one denotes scaling for edges from type 1 to type 5 for in-edges
+and the second one denotes scaling for edge from type 1 to type 5 for out-going edges. 
+
+For ebola when a person is admitted to hospitable, he/she is not in contact with any of its edges
+the generic intvention looks as follows:
+set interventions: <intv-id>,8,1.0,<duration-of-stay-in-hospital>,0,0.0#0.0#0.0#0.0#0.0,0.0#0.0#0.0#0.00#0.00, select lid from grid_locations where lid> 0 order by random() limit 10;
+
+essentially scale all outgoing and incoming edges to zero.
+
+for zika the edge weights for the location depend upon the ode function for the corresponding grid cells.
+
+questions?
+
+
+
+
+

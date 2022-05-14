@@ -1,0 +1,24 @@
+<sweep>
+      <parameter>epifast/transmissibility</parameter>
+	<abbrv>tr</abbrv>
+	<type>enum_float</type>
+	<values>
+	<val>0.000058</val>
+	<val>0.000065</val>
+	<val>0.000072</val>
+	</values>
+</sweep>
+
+<!-- <sweep> -->
+<!--       <parameter>study_params/iql_intv_trigger_threshold</parameter> -->
+<!-- 	<abbrv>ith</abbrv> -->
+<!-- 	<type>enum_float</type> -->
+<!-- 	<values> -->
+<!-- 	<val>0.01</val> -->
+<!-- 	<val>0.03</val> -->
+<!-- 	<val>0.05</val> -->
+<!-- 	</values> -->
+<!-- </sweep> -->
+
+
+

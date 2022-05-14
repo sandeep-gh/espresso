@@ -1,0 +1,186 @@
+
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{hyperref}
+\graphicspath{ {images/} }
+
+\title{\bf Isolation and Household}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+\section{Introduction}
+\subsection{Indemics Framework}
+Indemics (Interactive Epidemic Simulation) is an interactive, high performance modeling  framework for real time pandemic planning, situation assessment and course of action analysis. 
+
+\subsection{Intervention}
+An intervention modifies the states or the social neighbor connections of some individuals. An intervention consists of a trigger and an action. The action is applied when the trigger condition is satisfied for the first time. 
+
+Indemics separates the simulations of intervention policy and epidemic diffusion. The client can describe his intervention scenario in Indemics client commands and submit them to Indemics to simulate the intervention effect in epidemic management. This manual explains how to develop interventions in Indemics and how to use indemics to perform specific intervention case studies.
+
+\subsection{Expressing interventions using SQL}
+A given intervention scenario is specified using SQL and typically consists of a set of queries. These queries are executed one after another each day, to find the subpopulation to be intervened. 
+
+\section{Sweep}
+\begin{itemize}
+\item parameter: to sweep
+\item (Float) start\_val: value starting the sweep
+\item (Float) inc: value incrementing the value of the sweep
+\item (Float) end\_val: value ending the sweep
+\end{itemize}
+
+e.g. Compliance values (0.5, 1.0):\\
+$<start\_val>0.5</start\_val>\\
+    <inc>0.5</inc>\\
+    <end\_val>1.0</end\_val>$
+    \\\\
+e.g. Replicate values (0, 1):\\
+$<start\_val>0</start\_val>\\
+    <inc>1</inc>\\
+    <end\_val>1</end\_val>$
+    
+\section{Running the Intervention} 
+To run the intervention: \\
+\url{https://ndsslgit.vbi.vt.edu/ndssl-software/dicex_epistudy/blob/master/tlc_manual.pdf}
+
+\section{Project Repository}
+\url{https://ndsslgit.vbi.vt.edu/ndssl-software/dicex_epistudy}
+
+\section{Ring Intervention} 
+The trigger is the number of days before an infectious individual gets diagnosed, it will activate an intervention to every contact in his household. The intervention will be administrated to the household contacts if there's availability.
+
+\subsection{SQL template}
+\begin{itemize}
+\item update the intv\_daily table with workers with x days of symptoms that need to be intervened\\
+update intv\_daily set intervened=``now", acttype=2  from (select pid from sick\_individual where time = `expr ``now" - i0\_daysill')as O where intervened=-1 and intv\_daily.pid=O.pid
+
+\item update the intv\_daily table with household members from the individuals that need to be intervened\\
+update intv\_daily set intervened=``now" from (select pid from person\_info where hid in (select hid from person\_info where pid in (select pid from intv\_daily where intervened=``now"and acttype=2)))as O where intervened=-1 and intv\_daily.pid=O.pid"
+
+\item insert into intv table household members that need to be intervened if vaccines are available\\
+insert into intv select * from intv\_daily where intervened=``now" and acttype=0 and intervened$>$=i0\_atday order by random() limit (i0\_vaccines - (select count (*) from intv))"
+
+\item set interventions\\
+0,i0\_type,i0\_compliance,i0\_duration,i0\_delay,i0\_efficacy\_in,i0\_efficacy\_out, select pid from intv where intervened = ``now"
+        
+\end{itemize}
+\subsection{Parameters to run the Ring intervention with example values for the plots presented in Figure \ref{fig:ring}}
+\begin{itemize}
+\item iql\_key: i0
+\item (Integer) type: 0
+\item (Float) compliance: 1.0
+\item (Int) duration: 20
+\item (Int) delay: 0
+\item (Float) efficacy-in: 0.2
+\item  (Float) efficacy-out: 0.2
+\item (Float) ascertain: 0.6
+\item (Int) days ill: 1
+\item (Int) vaccines: 100000
+\item (Int) atday: varying values \{20,30,40,50\}
+\end{itemize}
+
+\subsection{Ring Intervention Plots}
+\begin{figure}[h]
+\centering{\includegraphics[scale=0.6]{ring.png}}
+\caption{Ring Intervention}
+\label{fig:ring}
+\end{figure}
+
+\section{Household Intervention} 
+\textbf{intervention0}: All symptomatic individuals retire home from the workplace after x days of being ill.\\
+\textbf{intervention1}: Household contacts receive y days of treatment.\\
+\textbf{intervention2}: All symptomatic individuals receive z days of treatment.
+
+\subsection{SQL template}
+\begin{itemize}
+\item update the intv table with workers with x days of symptoms that need to be intervened\\
+updateintv set intervened=``now", acttype=2 from (select pid from sick\_workers where time = `expr ``now" -i0\_daysill')as O where intervened=-1 and intv.pid=O.pid"
+
+\item update the intv table with household members from the workers that need to be intervened\\
+update intv set intervened=``now" from (select pid from person\_info where hid in (select hid from person\_info where pid in (select pid from intv where intervened=``now" and acttype=2)))as O where intervened=-1 and intv.pid=O.pid"
+
+\item set interventions\\
+(1) 0,i0\_type,i0\_compliance,i0\_duration,i0\_delay,i0\_efficacy\_in,i0\_efficacy\_out, select pid from replicate\_desc\_intv where intervened =``now" and acttype=2;\\
+(2) 1,i1\_type,i1\_compliance,i1\_duration,i1\_delay,i1\_efficacy\_in,i1\_efficacy\_out, select pid from replicate\_desc\_intv where intervened =``now" and acttype=0;\\
+(3) 2,i2\_type,i2\_compliance,i2\_duration,i2\_delay,i2\_efficacy\_in,i2\_efficacy\_out, select pid from replicate\_desc\_intv where intervened =``now" and acttype=2;\\
+
+
+        
+\end{itemize}
+\subsection{Parameters to run the Household intervention with example values for the plots presented in Figure \ref{fig:house}}
+Intervention1
+\begin{itemize}
+\item iql\_key: i0
+\item (Integer) type: 3
+\item (Float) compliance: 1.0
+\item (Int) duration: 300
+\item (Int) delay: 0
+\item (Float) efficacy-in: 1.0
+\item  (Float) efficacy-out: 1.0
+\item (Float) ascertain: 0.6
+\item (Int) days ill: varying values \{1,2,3,4\}
+\end{itemize}
+Intervention 2
+\begin{itemize}
+\item iql\_key: i1
+\item (Integer) type: 1
+\item (Float) compliance: 1.0
+\item (Int) duration: 300
+\item (Int) delay: 20
+\item (Float) efficacy-in: 0.2
+\item  (Float) efficacy-out: 0.2
+\end{itemize}
+Intervention 3
+\begin{itemize}
+\item iql\_key: i2
+\item (Integer) type: 7
+\item (Float) compliance: 1.0
+\item (Int) duration: 300
+\item (Int) delay: 0
+\item (Float) efficacy-in: 1.0
+\item  (Float) efficacy-out: 1.0
+\end{itemize}
+
+\subsection{Household Intervention Plots}
+\begin{figure}[h]
+\centering{\includegraphics[scale=0.6]{ring.png}}
+\caption{Household Intervention}
+\label{fig:house}
+\end{figure}
+
+\section{Block Intervention} 
+Vaccinate all people in any block if the fraction of diagnosed people in that block exceeds some threshold.
+
+\subsection{SQL template}
+\begin{itemize}
+
+\item update table with blocks and the number of people infected for more than x days\\
+insert into block\_win\_diag\_count select bid, sum(infections), ``now" from block\_daily\_diag\_count  where day between `expr ``now"  - i0\_daysill' and ``now"  group by bid"
+
+\item updates the block\_intervened table to specify which blocks gets intervened in a certain day\\
+ update block\_intervened set intervened = ``now" from (select s.bid from block\_win\_diag\_count s, block\_intervened i where day = ``now" and (s.infections::float/i.persons $>$ i0\_threshold) and s.bid=i.bid) AS O where intervened = -1 and block\_intervened.bid=O.bid
+
+\item set interventions\\
+0,i0\_type,i0\_compliance,i0\_duration,i0\_delay,i0\_efficacy\_in,i0\_efficacy\_out, select pid from block\_info b, block\_intervened i where b.block=i.bid and i.intervened = ``now"
+        
+\end{itemize}
+\subsection{Parameters to run the Block intervention}
+\begin{itemize}
+\item iql\_key: i0
+\item (Integer) type: 0
+\item (Float) compliance: 1.0
+\item (Int) duration: 300
+\item (Int) delay: 20
+\item (Float) efficacy-in: 0.1
+\item  (Float) efficacy-out: 0.1
+\item (Int) days ill: 1
+\item (Int) threshold: 0.06
+\item (Int) atday: varying values \{0.04, 0.05, 0.06\}
+\end{itemize}
+
+
+\end{document}
+

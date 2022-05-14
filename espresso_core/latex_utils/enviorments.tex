@@ -1,0 +1,39 @@
+%minted enviorment but with background color
+%
+\usepackage{tcolorbox}
+\tcbuselibrary{minted,skins}
+
+\newtcblisting{bashcode}[1][]{
+  listing engine=minted,
+  colback=mybluei!50!white,
+  colframe=mybluei,
+  listing only,
+  minted style=colorful,
+  minted language=bash,
+  minted options={fontsize=\small, linenos=false,numbersep=3mm,texcl=true,#1},
+  left=5mm,enhanced,
+  overlay={\begin{tcbclipinterior}\fill[mybluei] (frame.south west)
+            rectangle ([xshift=5mm]frame.north west);\end{tcbclipinterior}}
+}
+
+\newtcblisting{pythoncode}[1][]{
+  listing engine=minted,
+  listing only,
+  minted style=colorful,
+  minted language=python,
+  minted options={escapeinside=??, fontsize=\small,linenos=false,numbersep=3mm,texcl=true,#1},
+  left=5mm,enhanced,
+  overlay={\begin{tcbclipinterior}\fill[mybluei] (frame.south west)
+            rectangle ([xshift=5mm]frame.north west);\end{tcbclipinterior}}
+}
+
+\newtcblisting{xmlcode}[1][]{
+  listing engine=minted,
+  listing only,
+  minted style=colorful,
+  minted language=xml,
+  minted options={escapeinside=??,fontsize=\small,linenos=false,numbersep=3mm,texcl=true,#1},
+  left=5mm,enhanced,
+  overlay={\begin{tcbclipinterior}\fill[mybluei] (frame.south west)
+            rectangle ([xshift=5mm]frame.north west);\end{tcbclipinterior}}
+}

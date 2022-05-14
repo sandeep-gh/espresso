@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE epistudy [
+	  $common_header
+	  <!ENTITY var_db_job_group "$pvar_db_job_group">
+	  <!ENTITY var_db_job_queue "$pvar_db_job_queue">
+	  <!ENTITY var_db_job_walltime "$pvar_db_job_walltime">
+	  <!ENTITY var_db_job_ppn "$pvar_db_job_ppn">
+	  <!ENTITY var_db_host_type "$pvar_db_host_type">
+	  
+	  <!ENTITY var_indemics_server_job_group "$pvar_indemics_server_job_group">
+	  <!ENTITY var_indemics_server_job_queue "$pvar_indemics_server_job_queue">
+	  <!ENTITY var_indemics_server_job_walltime "$pvar_indemics_server_job_walltime">
+	  <!ENTITY var_indemics_server_job_ppn "$pvar_indemics_server_job_ppn">
+	  <!ENTITY var_indemics_server_host_type "$pvar_indemics_server_host_type">
+	  ]>

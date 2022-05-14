@@ -1,0 +1,73 @@
+* Config file organization and flow
+** system
+*** common header (<pvar_session>_common.xml)
+<!ENTITY var_session "$pvar_session">
+<!ENTITY var_session_run_dir "$pvar_study_run_dir">
+<!ENTITY var_dicex_base_dir "$pvar_dicex_dir">
+<!ENTITY var_devel "$pvar_devel">
+<!ENTITY var_model_base_dir "$pvar_model_base_dir">
+*** system xml
+(common_header.xml.template
+=> system_header.xml.template)
+@  system_default.xml
+= <pvar_session>.xml, <pvar_session>_common.xml
+*** outputs
+jpype_session.xml, jpype_session_common.xml
+
+** model
+(<pvar_session>_common.xml#common_model_header.xml.template)
+   (<session_name>_common_header, common_model_header) 
+=> model_header.xml.template
+@  model_default.xml
++ <pvar_session>.xml
+
+# also outputs common_<model>.xml
+
+*** outputs
+common_jpype_model.xml
+jpype_replicate_tables.xml
+jpype_model.xml
+
+** doe
+  header_xml@cell_cfg_base.xml  
++ header_xml@<study>/cell_cfg.xml.<scenario> 
++ header_xml@doe_base_cfg.xml
++ [model].xml
+
+full_do
+
+* [2016-08-24 Wed 11:56] starting over
+** gen_system_cfg 
+** gen_model_cfg
+** gen_doe_cfg
+** Some invariants/implicts
+*** <session> produces <session>_session.xml and dbsession_test_session_dataengine.py
+*** all directories are relative to session directory
+*** by default xml file for doe is sid_<sid>_cfg.xml
+*** all intervention script need to have day_tracker
+
+* Development tidbits
+** to execute remote cmd
+remote_cmd = Template('''ssh $host ". $dicex_base_dir/dicex.sh; cd $wd; $module_dir/remote_add_study.sh $cfg_fn"''')
+
+** Current workflow
+spresso session --id test_session --dicex_dir=/home/sandeep/NDSSL-Software
+setup.sh test_session.xml
+python $ECD/gen_model_cfg.py  --id test_model --session test --region Miami --study block
+to_dbhost
+load_remote_model.sh test_model.xml
+python $ECD/gen_doe_cfg.py  --model test_model --output test_doe.xml
+add_study.sh test_doe.xml
+
+
+* Analysis
+** command 
+spresso analysis --doe <doe_id> 
+
+* Log 
+** Massive reorganization
+*** spresso session
+*** multiple models (Miami, LA, etc. are all models)
+*** multiple studies (coordinated and uncordingated)
+** model.xml only needs the session title
+** gen_doe 

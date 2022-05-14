@@ -1,0 +1,78 @@
+** [[/home/sandeep/ndsslgit/2016-DTRA-CBA04-USAID/mwe.tex]]
+[[/home/sandeep/ndsslgit/2016-DTRA-CBA04-USAID/mwe.pdf]]
+
+** [[/home/sandeep/ndsslgit/2016-DTRA-CBA04-USAID/the_grand_idea_container.tex]]
+[[/home/sandeep/ndsslgit/2016-DTRA-CBA04-USAID/the_grand_idea_container.pdf]]
+
+** [[/home/sandeep/ndsslgit/NIH-RFA-CA-15-017-BD2K/hexagon.tex]]
+[[/home/sandeep/ndsslgit/NIH-RFA-CA-15-017-BD2K/hexagon.pdf]]
+
+** [[/home/sandeep/ndsslgit/2015-dicex-sandeep/dicex_framework_container.tex]]
+[[/home/sandeep/ndsslgit/2015-dicex-sandeep/dicex_framework_container.pdf]]
+
+
+** [[/home/sandeep/ndsslgit/2015-dicex-sandeep/DB_on_SC_setup_container.tex]]
+[[/home/sandeep/ndsslgit/2015-dicex-sandeep/DB_on_SC_setup_container.pdf]] 
+
+
+** [[/home/sandeep/ndsslgit/2014-sc14-pyhpc-gupta/EpiPipes_overview_container.tex]]
+[[/home/sandeep/ndsslgit/2014-sc14-pyhpc-gupta/EpiPipes_overview.tex]]
+[[/home/sandeep/ndsslgit/2014-sc14-pyhpc-gupta/EpiPipes_overview_container.pdf]]
+
+** [[/home/sandeep/ndsslgit/2014-sc14-pyhpc-gupta/GP_pipeline_container.tex]]
+[[/home/sandeep/ndsslgit/2014-sc14-pyhpc-gupta/GP_pipeline_container.pdf]]
+
+** [[/home/sandeep/ndsslgit/2015-dicex-sandeep/pgxc_architecture_container.tex]]
+[[/home/sandeep/ndsslgit/2015-dicex-sandeep/pgxc_architecture_container.pdf]]
+
+** [[/home/sandeep/ndsslgit/2015-dicex-sandeep/Dicex_layers.tex]]
+[[/home/sandeep/ndsslgit/2015-dicex-sandeep/Dicex_layers_container.pdf]]
+
+** [[/home/sandeep/ndsslgit/2015-dicex-sandeep/pyramid.tex]]
+
+
+** [[/home/sandeep/ndsslgit/NIH_RO1_2014_declarative_data_access/Architecture_and_modeling.tex]]
+
+
+** [[/home/sandeep/projects_in_simfrastructure/simpp/Document/v2/tikz_bolts_and_nuts/query_plan.tex]]
+[[/home/sandeep/projects_in_simfrastructure/simpp/Document/v2/tikz_bolts_and_nuts/query_plan.pdf]]
+
+** [[/home/sandeep/projects_in_simfrastructure/simpp/Document/v2/tikz_bolts_and_nuts/nuts.tex]]
+[[/home/sandeep/projects_in_simfrastructure/simpp/Document/v2/tikz_bolts_and_nuts/nuts.pdf]]
+
+** [[/backup1/projects_local/dag_data_model/Data_model_life_sciences/tree_example.tex]]
+[[/backup1/projects_local/dag_data_model/Data_model_life_sciences/tree_example.pdf]]
+
+
+** [[/backup1/projects_local/NIH_ROI/concentric_ring.tex]]
+[[/backup1/projects_local/NIH_ROI/concentric_ring.pdf]]
+
+
+** 
+
+
+
+
+
+** matrix with curved edges
+
+
+\begin{tikzpicture}
+ \matrix (m)[column sep=3cm, row sep=.3in,  ampersand replacement=\&]{
+      \node[] (r1c1) {}; \& \node[] (r1c2) {}; \& \node[] (r1c3) {};  \\
+   \node[textbox,] (w1) {Intervention Design}; \& \node[textbox,] (w2) {Simulation State}; \& \node[textbox,] (w3) {Active Epifast Run};  \\
+      \node[] (r2c1) {}; \& \node[] (r2c2) {}; \& \node[] (r2c3) {};  \\
+};
+%\draw (w3.south) edge[post,out=-90,in=90] (r2c3) (r2c3) edge[post] (r2c2);        
+\draw[post, rounded corners] (w3.south) to (r2c3.center)   to node[below, labelbox]{pause sim; upload new diagnosed and infected} ([xshift=30pt]r2c2.center) to ([xshift=30pt]w2.south);        
+\draw[post, rounded corners] ([xshift=-30pt]w2.south) to ([xshift=-30pt]r2c2.center)   to node[below,labelbox] {assess/analyze sim state} (r2c1.center) to (w1.south);
+\draw[post, rounded corners] (w1.north)  to (r1c1.center) to node[above, labelbox]{inject intervention in Epifast} (r1c3.center) to (w3.north);
+\end{tikzpicture}
+
+
+
+
+* Embedded
+** /home/sandeep/ndsslgit/NIH_RO1_2014_declarative_data_access/draft.tex
+** /backup1/projects_local/dag_data_model/Data_Model_Revised/CoCoDAG.tex
+** [[/backup1/projects_local/graph500_bfs/bits_and_pieces.tex]]

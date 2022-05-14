@@ -1,0 +1,74 @@
+<intervention_prescription>
+  <background>
+    <setup_stmts>
+      <wstmt>
+	<label>candidate_ascertained</label>
+      <stmt>insert into &var_replicate_desc;_ascertained select pid from &var_model_prefix;person_info order by random() limit (${i0_ascertain}*(select count(*) from &var_model_prefix;person_info))</stmt>
+      </wstmt>
+      <wstmt>
+	<label>init_intv_status</label>
+	<stmt>insert into &var_replicate_desc;_intv select pid, -1, -1 from &var_replicate_desc;_ascertained</stmt>
+      </wstmt>
+      <wstmt>
+	<label>init_worker_pool</label>
+      <stmt>insert into &var_replicate_desc;_workers select distinct w.pid from &var_model_prefix;worker w, &var_replicate_desc;_ascertained i where w.pid=i.pid</stmt>
+      </wstmt>
+      <wstmt>
+	<label>init_student_pool</label>
+	<stmt>insert into &var_replicate_desc;_students select distinct s.pid from &var_model_prefix;student s, &var_replicate_desc;_ascertained i where s.pid=i.pid</stmt>
+      </wstmt>
+      <wstmt>
+	<label>initialize_day_inf_rate</label>
+	<stmt>insert into &var_replicate_desc;_day_inf_rate values (-1, 0.0, 0)</stmt>
+      </wstmt>
+      <wstmt>
+	<label>initialize_attack_rate_by_day</label>
+	<stmt>insert into &var_replicate_desc;_attack_rate_by_day values (-1, 0.0, 0)</stmt>
+      </wstmt>
+    </setup_stmts>
+
+    <pre_intv_db_stmts>
+      <wstmt>
+	<label>update_day_inf_rate</label>
+	<stmt>insert into &var_replicate_desc;_day_inf_rate select $day, count(pid) as num_infected, count(pid)::float/${region_popsz} as inf_rate from &amp;{diagnosed table} d where time &lt;= $day </stmt>
+      </wstmt>
+      <wstmt>
+        <label>update_attack_rate_by_day</label>
+        <stmt> insert into &var_replicate_desc;_attack_rate_by_day select $day, count(num_infected) as num_infected, count(num_infected)::float/${region_popsz} as attack_rate from &var_replicate_desc;_day_inf_rate  where day &lt;= $day</stmt>
+      </wstmt>
+      <wstmt>
+	<label>update_infected_workers</label>
+	<stmt>insert into &var_replicate_desc;_sick_workers select d.pid, d.time from  &amp;{diagnosed table} d, &var_replicate_desc;_workers w  where d.pid=w.pid and d.time=$day</stmt>
+      </wstmt>
+      <wstmt>
+	<label>update_infected_students</label>
+      <stmt>insert into &var_replicate_desc;_sick_students select d.pid, d.time from  &amp;{diagnosed table} d, &var_replicate_desc;_students w where d.pid=w.pid and d.time=$day</stmt>
+      </wstmt>
+      <wstmt>
+	<label>mark_infected_worker_for_intv</label>
+      <stmt>update &var_replicate_desc;_intv set intervened=$day, ig_type=2 from (select pid from &var_replicate_desc;_sick_workers where day = ${take_pill_delay})as O where intervened=-1 and &var_replicate_desc;_intv.pid=O.pid</stmt>
+      </wstmt>
+      <wstmt>
+	<label>mark_infected_students_for_intv</label>
+      <stmt>update &var_replicate_desc;_intv set intervened=$day, ig_type=3 from (select pid from &var_replicate_desc;_sick_students where day = ${take_pill_delay})as O where intervened=-1 and &var_replicate_desc;_intv.pid=O.pid</stmt>
+      </wstmt>
+    </pre_intv_db_stmts>
+    <intv_stmts>
+      <wstmt>
+	<label>intervene_workers</label>
+      <stmt>0,${i0_class}, ${i0_type},${i0_compliance},${i0_duration},${i0_delay},${i0_efficacy_in},${i0_efficacy_out}, select pid from &var_replicate_desc;_intv where intervened =$day and ig_type=2
+      </stmt>
+      </wstmt>
+      <wstmt>
+	<label>intervene_students</label>
+      <stmt>3,${i3_class},${i3_type},${i3_compliance},${i3_duration},${i3_delay},${i3_efficacy_in},${i3_efficacy_out}, select pid from &var_replicate_desc;_intv where intervened =$day and ig_type=3</stmt>
+      </wstmt>
+    </intv_stmts>
+    <post_intv_db_stmts></post_intv_db_stmts>
+  </background>
+</intervention_prescription>
+
+
+
+
+

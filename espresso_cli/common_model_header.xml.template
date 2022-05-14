@@ -1,0 +1,6 @@
+<!ENTITY var_cfg_dir "&var_cfg_base_dir;/&var_study;">
+
+<!ENTITY var_model_dir "&var_model_base_dir;/&var_region;">
+
+<!-- prefix assigns a unique identifier to the model; for most scenarios the region descriptor will satisfy -->
+<!ENTITY var_model_prefix "&var_region;_">

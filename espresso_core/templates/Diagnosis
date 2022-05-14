@@ -1,0 +1,4 @@
+ModelVersion = 2009
+ProbSymptomaticToHospital = 1.0
+ProbDiagnoseSymptomatic = 0.6667
+DiagnosedDuration = 6

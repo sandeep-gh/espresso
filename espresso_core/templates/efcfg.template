@@ -1,0 +1,21 @@
+ConfigVersion = 2009
+ContactGraphFileFormat = EFIG6Bb
+ContactGraphFile = ${ef_socnet_path}
+Transmissibility = ${transmissibility}
+AsymptomaticProbability = ${asymptomatic_probability}
+AsymptomaticFactor = ${asymptomatic_factor}
+IncubationPeriodFormat = ${IncubationPeriodFormat}
+IncubationPeriodFile = ${IncubationPeriodFile}
+InfectiousPeriodFormat = ${InfectiousPeriodFormat}
+InfectiousPeriodFile = ${InfectiousPeriodFile}
+EpidemicSeedType = ${EpidemicSeedType}
+${seed_number_stmt}
+${seed_subpop_stmt}
+OutputLevel = 8110
+OutputFile = ${efdir}/EFO_Intervention
+LogFile =  ${efdir}/Log_Intervention
+SimulationDuration = ${simulation_duration}
+IterationNumber = 1
+SimulationRandomSeed = ${rand_gen}
+DiagnosisFile = ${efdir}/Diagnosis
+InterventionFile = ${efdir}/Intervention

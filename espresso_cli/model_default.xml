@@ -1,0 +1,14 @@
+<root xmlns:xi="http://www.w3.org/2001/XInclude">
+<model>
+  <xi:include href="&var_session_run_dir;/&var_session;.xml" parse="xml"/>
+  <region>&var_region;</region>
+  <study>&var_study;</study>
+  <epistudy_config_dir>&var_cfg_dir;</epistudy_config_dir>
+  <model_dir>&var_model_base_dir;/&var_region;</model_dir>
+  <model_prefix>&var_model_prefix;</model_prefix>
+  <model_data>
+    <edcfg_file>&var_cfg_dir;/intv_base_dataset_edcfg.xml</edcfg_file>
+  </model_data>
+  <socnet_path>&var_model_dir;/socialnet/EFIG6Bb</socnet_path>
+</model>
+</root>

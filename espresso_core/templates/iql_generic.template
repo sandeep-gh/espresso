@@ -1,0 +1,24 @@
+echo "set player id: ndssl,ndssl"
+echo "select session: session = ${replicate_desc}, super player"
+
+echo "manage table : insert into ${replicate_desc}_intv select pid, 0, -1 from {replicate_desc}_person_info order by random() limit (${i0_ascertain}*(select count(*) from {replicate_desc}_person_info))"
+echo "manage table : insert into ${replicate_desc}_workers select distinct w.pid from {replicate_desc}_worker w, ${replicate_desc}_intv i where w.pid=i.pid"
+
+echo "manage table : create index ${replicate_desc}_intv_pid_idx on ${replicate_desc}_intv(pid)"
+echo "manage table : create index ${replicate_desc}_workers_pid_idx on ${replicate_desc}_workers(pid)"
+echo "manage table : create index ${replicate_desc}_diag_pid_idx on &{diagnosed table} (pid)"
+
+for(( i=0; i < ${simulation_duration} ; i++ ))
+do
+        echo "manage table: insert into ${replicate_desc}_sick_workers select d.pid, d.time from  &{diagnosed table} d, ${replicate_desc}_workers w where d.pid=w.pid and d.time=$i"
+
+        echo "manage table: update ${replicate_desc}_intv set intervened=$i, acttype=2 from (select pid from ${replicate_desc}_sick_workers where time = `expr $i - ${i0_daysill}`)as O where intervened=-1 and ${replicate_desc}_intv.pid=O.pid"
+
+        echo "manage table: update ${replicate_desc}_intv set intervened=$i from (select pid from {replicate_desc}_person_info where hid in (select hid from {replicate_desc}_person_info where pid in (select pid from ${replicate_desc}_intv where intervened=$i and acttype=2)))as O where intervened=-1 and ${replicate_desc}_intv.pid=O.pid"
+
+        echo "set interventions:0,${i0_type},${i0_compliance},${i0_duration},${i0_delay},${i0_eff_in},${i0_eff_out}, select pid from ${replicate_desc}_intv where intervened =$i and acttype=2;1,${i1_type},${i1_compliance},${i1_duration},${i1_delay},${i1_eff_in},${i1_eff_out}, select pid from ${replicate_desc}_intv where intervened =$i and acttype=0;"
+
+done
+
+echo "stop session:"
+echo "stop client:"

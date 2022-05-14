@@ -1,0 +1,48 @@
+#!/bin/bash
+#PBS -l walltime=${walltime}:00:00
+#PBS -l nodes=${ef_nodes}:ppn=${qsub_ppn}
+#PBS -W group_list=${qsub_group_list}
+#PBS -q ${qsub_q}
+#PBS -N ${ef_jobname} 
+#PBS -j oe
+#PBS -o ${job_out_file}
+#/groups/NDSSL/projects/EpiFast/20160308_indemics_debug/EpiFast_Indemics
+
+. /etc/profile.d/modules.sh
+#to compute wall time
+
+START=$$(date +%s.%N)
+${dicex_env}
+#module load openmpi/gcc/64/1.8.1
+#module load mpi/mvapich2/gcc/64/1.7
+#module load mpi/mvapich2/gcc/4.7.2/1.9
+#module load mvapich/gcc/64/1.2rc1
+#module load mvapich2/gcc
+#module load mpi/mvapich2/gcc/4.7.2/1.9
+module load ${mpi_module}
+
+NUM_NODES=`cat $PBS_NODEFILE|wc -l`
+
+#module load math/epd
+SIMDM_ROOT=${indemics_dir}
+SIMDM_LIB=${SIMDM_ROOT}/library
+SIMDM_JAR=${SIMDM_ROOT}/release/Indemics_client.jar
+CLASSPATH=${CLASSPATH}:${SIMDM_LIB}/classes12.jar:${SIMDM_JAR}
+cd ${PBS_O_WORKDIR}
+cd ${rep_home}
+jobid=`echo $PBS_JOBID | sed 's/.master.cm.cluster//'`
+echo "${jobid}" >> ef_job_id.py
+echo "epifast head compute node " `hostname` >> epifast_qsub.log
+#${iql_loc} | /usr/bin/java -DSIMDMCONFDIR=${study_dir}/conf -cp ${CLASSPATH} edu.vt.ndssl.simdm.client.ConsoleGameClient > ${client_out} 2> ${client_err}&
+epifast_dry_run=${epifast_dry_run}
+if [ "$$epifast_dry_run" -eq 0 ]
+   then
+       python ${espresso_base_dir}/espresso_intervention_conductor/sim_flow_controller.py ${replicate_cfg_fn} ${replicate_desc} > ${client_out} 2>${client_err}&
+       MPIRUN="mpiexec -n $NUM_NODES"
+       $MPIRUN ${epifast_bin} ${ef_cfg_loc} > ${ef_out} 2>${ef_err}
+fi
+END=$$(date +%s.%N)
+DIFF=$$(echo "$$END - $$START" | bc)
+echo "$$DIFF" > job_rep_${replicate_desc}_status.txt
+
+exit;

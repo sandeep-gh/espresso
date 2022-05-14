@@ -1,0 +1,115 @@
+<intervention_prescription>
+  <background>
+    <setup_stmts>
+      <wstmt>
+        <label>candidate_ascertained</label>
+        <stmt> insert into &var_replicate_desc;_ascertained select pid from &var_model_prefix;person_info order by random() limit (${i0_ascertain}*(select count(*) from &var_model_prefix;person_info))</stmt>
+      </wstmt>
+      <wstmt>
+        <label>init_intv_status</label>
+        <stmt> insert into &var_replicate_desc;_intv select pid, -1, -1 from &var_replicate_desc;_ascertained</stmt>
+      </wstmt>
+
+      <wstmt>
+        <label>init_worker_pool</label>
+        <stmt> insert into &var_replicate_desc;_workers select distinct w.pid from &var_model_prefix;worker w, &var_replicate_desc;_ascertained i where w.pid=i.pid</stmt>
+      </wstmt>
+      <wstmt>
+        <label>init_student_pool</label>
+        <stmt> insert into &var_replicate_desc;_students select distinct s.pid from &var_model_prefix;student s, &var_replicate_desc;_ascertained i where s.pid=i.pid</stmt>
+      </wstmt>
+      <wstmt>
+        <label>intv_trigger_9</label>
+        <stmt> insert into &var_replicate_desc;_pop_intv_trigger values (9, -1)</stmt>
+      </wstmt>
+      <wstmt>
+        <label>intv_trigger_10</label>
+        <stmt> insert into &var_replicate_desc;_pop_intv_trigger values (10, -1)</stmt>
+      </wstmt>
+    </setup_stmts>
+
+    <pre_intv_db_stmts>
+      <wstmt>
+        <label>update_day_inf_rate</label>
+        <stmt> insert into &var_replicate_desc;_day_inf_rate select $day, count(pid)::float/${iql_popsz} as num_inf from &amp;{diagnosed table} d where time &lt;= $day</stmt>
+      </wstmt>
+      <wstmt>
+        <label>update_infected_workers</label>
+        <stmt> insert into &var_replicate_desc;_sick_&var_model_prefix;workers select d.pid, d.time from  &amp;{diagnosed table} d, &var_replicate_desc;_workers w  where d.pid=w.pid and d.time=$day</stmt>
+      </wstmt>
+      <wstmt>
+        <label>update_infected_students</label>
+        <stmt> insert into &var_replicate_desc;_sick_&var_model_prefix;students select d.pid, d.time from  &amp;{diagnosed table} d, &var_replicate_desc;_students w where d.pid=w.pid and d.time=$day</stmt>
+      </wstmt>
+      <wstmt>
+        <label>mark_infected_workers_for_intv</label>
+        <stmt> update &var_replicate_desc;_intv set intervened=$day, ig_type=2 from (select pid from &var_replicate_desc;_sick_&var_model_prefix;workers where day = ${take_pill_delay})as O where intervened=-1 and &var_replicate_desc;_intv.pid=O.pid </stmt>
+      </wstmt>
+      <wstmt>
+        <label>mark_infected_students_for_intv</label>
+        <stmt> update &var_replicate_desc;_intv set intervened=$day, ig_type=3 from (select pid from &var_replicate_desc;_sick_&var_model_prefix;students where day = ${take_pill_delay})as O where intervened=-1 and &var_replicate_desc;_intv.pid=O.pid</stmt>
+      </wstmt>
+      <wstmt>
+        <label>mark_sick_workers_household_members_for_intv</label>
+        <stmt> update &var_replicate_desc;_intv set intervened=$day, ig_type=4 from (select pid from &var_model_prefix;person_info where hid in (select hid from &var_model_prefix;person_info where pid in (select pid from &var_replicate_desc;_intv where intervened=$day and ig_type=2)))as O where intervened=-1 and &var_replicate_desc;_intv.pid=O.pid</stmt>
+      </wstmt>
+      <wstmt>
+        <label>mark_sick_students_household_members_for_intv</label>
+        <stmt> update &var_replicate_desc;_intv set intervened=$day, ig_type=5 from (select pid from &var_model_prefix;person_info where hid in (select hid from &var_model_prefix;person_info where pid in (select pid from &var_replicate_desc;_intv where intervened=$day and ig_type=3)))as O where intervened=-1 and &var_replicate_desc;_intv.pid=O.pid</stmt>
+      </wstmt>
+      <wstmt>
+        <label>mark_caretaker_for_intv</label>
+        <stmt> update  &var_replicate_desc;_intv set intervened=$day, ig_type=6 from (SELECT DISTINCT ON (hid) last_value(HM.age)  OVER wnd as ct_age,    last_value(HM.pid)  OVER wnd as ct_pid,    HM.hid    FROM  (select B.pid as pid, B.hid as hid, B.age as age from &var_model_prefix;person_info A, &var_model_prefix;person_info B, &var_replicate_desc;_intv as C where A.pid != B.pid and A.hid = B.hid and  C.pid = A.pid and C.ig_type=2 and C.intervened=$day) as HM WINDOW wnd AS (PARTITION BY HM.hid ORDER BY HM.age ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING )) as O where intervened=-1 and &var_replicate_desc;_intv.pid=O.ct_pid</stmt>
+      </wstmt>
+      <wstmt>
+        <label>update_intv_9_trigger_day</label>
+        <stmt> update &var_replicate_desc;_pop_intv_trigger set trigger_day = $day  from &var_replicate_desc;_day_inf_rate r where r.day = $day  and r.inf_rate > ${iql_intv_trigger_threshold}  and trigger_day = -1 and intv_id=9</stmt>
+      </wstmt>
+      <wstmt>
+        <label>mark_intv_10_trigger_day</label>
+        <stmt> update &var_replicate_desc;_pop_intv_trigger set trigger_day = $day  from &var_replicate_desc;_day_inf_rate r where r.day = $day  and r.inf_rate > ${iql_intv_trigger_threshold}  and trigger_day = -1 and intv_id=10</stmt>
+      </wstmt>
+    </pre_intv_db_stmts>
+    <intv_stmts>
+      <wstmt>
+        <label>intervene_workers</label>
+	<stmt>0,${i0_class},${i0_type},${i0_compliance},${i0_duration},${i0_delay},${i0_efficacy_in},${i0_efficacy_out}, select pid from &var_replicate_desc;_intv where intervened =$day and ig_type=2</stmt>
+      </wstmt>
+      <wstmt>
+        <label>intervene_workers_2</label>
+	<stmt>1,${i1_class}, ${i1_type},${i1_compliance},${i1_duration},${i1_delay},${i1_efficacy_in},${i1_efficacy_out}, select pid from &var_replicate_desc;_intv where intervened =$day and ig_type=2</stmt>
+      </wstmt>
+      <wstmt>
+        <label>intervene_sick_workers_household_members</label>
+	<stmt>2,${i2_class},${i2_type},${i2_compliance},${i2_duration},${i2_delay},${i2_efficacy_in},${i2_efficacy_out}, select pid from &var_replicate_desc;_intv where intervened = $day and ig_type=4</stmt>
+      </wstmt>
+      <wstmt>
+        <label>intervene_sick_students</label>
+	<stmt>4,${i4_class},${i4_type},${i4_compliance},${i4_duration},${i4_delay},${i4_efficacy_in},${i4_efficacy_out}, select pid from &var_replicate_desc;_intv where intervened =$day and ig_type=3</stmt>
+      </wstmt>
+
+      <wstmt>
+        <label>intervene_sick_student_household_members</label>
+	<stmt>5,${i5_class},${i5_type},${i5_compliance},${i5_duration},${i5_delay},${i5_efficacy_in},${i5_efficacy_out}, select pid from &var_replicate_desc;_intv where intervened = $day and ig_type=5</stmt>
+      </wstmt>
+      <wstmt>
+        <label>intervene_sick_workers_household_members_2</label>
+	<stmt>7,${i7_class},${i7_type},${i7_compliance},${i7_duration},${i7_delay},${i7_efficacy_in},${i7_efficacy_out}, select pid from &var_replicate_desc;_intv where intervened = $day and ig_type=4</stmt>
+      </wstmt>
+      <wstmt>
+        <label>intervene_sick_workers_household_members_3</label>
+	<stmt>8,${i8_class},${i8_type},${i8_compliance},${i8_duration},${i8_delay},${i8_efficacy_in},${i8_efficacy_out}, select pid from &var_replicate_desc;_intv where intervened = $day and ig_type=4</stmt>
+      </wstmt>
+      <wstmt>
+        <label>intervene_workers_3</label>
+	<stmt>11,${i11_class},${i11_type},${i11_compliance},${i11_duration},${i11_delay},${i11_efficacy_in},${i11_efficacy_out}, select pid from &var_replicate_desc;_intv where intervened =$day and ig_type=2</stmt>
+      </wstmt>
+      <wstmt>
+        <label>intervene_students_3</label>
+	<stmt>12,${i12_class},${i12_type},${i12_compliance},${i12_duration},${i12_delay},${i12_efficacy_in},${i12_efficacy_out}, select pid from &var_replicate_desc;_intv where intervened =$day and ig_type=3</stmt>
+      </wstmt>
+    </intv_stmts>
+    <post_intv_db_stmts></post_intv_db_stmts>
+  </background>
+</intervention_prescription>
+

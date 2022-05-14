@@ -1,0 +1,37 @@
+#!/bin/bash
+#PBS -l walltime=${walltime}:00:00
+#PBS -l nodes=1:ppn=${qsub_ppn}
+#PBS -W group_list=${qsub_group_list}
+#PBS -q ${qsub_q}
+#PBS -N indemics_server_${dbsession}
+#PBS -j oe
+#PBS -o ${work_dir}/indemics_server_${dbsession}.out
+#PBS -e ${work_dir}/indemics_server_${dbsession}.err
+
+. /etc/profile.d/modules.sh
+.   ${dicex_base_dir}/dicex_${cluster_name}.sh
+#. ${dicex_base_dir}/dicex.sh
+echo $PATH
+echo $PYTHONPATH
+cd ${PBS_O_WORKDIR}
+jobid=`echo $PBS_JOBID | sed 's/.master.cm.cluster//'`
+echo "indemics_server_jobid=\"${jobid}\"" >> dbsession_${dbsession}.py
+echo "indemics_server_hostname=\"`hostname`\"" >> dbsession_${dbsession}.py
+mkdir /localscratch/${user}
+cd ${study_dir}
+sed -i 's/INDEMICS_HOSTNAME/'`hostname`'/' conf/simdm.conf
+./launch_indemics_server.sh
+python ${dicex_base_dir}/versa_all/dicex_pgsa/send_signal.py ${launcher_hostname} ${message_port} 'indemics_server_launched'
+
+
+
+while [ 1 = 1 ]
+do
+	sleep 5m
+done
+
+
+
+
+
+

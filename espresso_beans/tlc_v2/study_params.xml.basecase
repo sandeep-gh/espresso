@@ -1,0 +1,12 @@
+<study_params>
+    <iql_intv_trigger_threshold>0.01</iql_intv_trigger_threshold>
+    <take_pill_delay>5</take_pill_delay>
+</study_params>
+<continious_params_implicit>
+<take_pill_delay>&#36;day - &#36;i0_daysill</take_pill_delay>
+</continious_params_implicit>
+<continious_params help="parameters defined by external module">
+<attack_rate_by_day>
+<module help="module that computes this parameter">get_attack_rate_by_day</module>
+</attack_rate_by_day>
+</continious_params>

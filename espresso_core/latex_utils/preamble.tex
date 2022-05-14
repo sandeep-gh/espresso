@@ -1,0 +1,276 @@
+\lstset{breaklines=true}
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+%\pagestyle{fancy}
+\author{Sandeep Gupta\\
+  Network Dynamics and Simulation Science Laboratory\\
+  Biocomplexity Institute of Virginia Tech\\
+  Virginia Tech\\
+  Blacksburg, VA, 24061\\
+  \texttt{sandeep@vbi.vt.edu}}
+
+
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.2,0.2,0.2}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.99,0.98,0.98}
+\definecolor{backframecolour}{rgb}{0.99,0.96,0.97}
+\definecolor{backcodepy}{rgb}{0.75,0.70,0.70}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Latex enviorment
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \definecolor{keywords}{HTML}{8A4A0B}
+%% \definecolor{background}{HTML}{EEEEEE}
+%% \lstset{language=[LaTeX]Tex,
+%%     keywordstyle=\color{keywords},
+%%     keywordstyle=[2]\color{blue!40},
+%%     keywordstyle=[3]\color{brown!40},
+%%     keywordstyle=[4]\color{brown!40},
+%%     keywordstyle=[5]\color{red!40},
+%%     keywordstyle=[6]\color{black!40},
+%%     basicstyle=\ttfamily\scriptsize,
+%%     showstringspaces=false,
+%%     frameround=ftff,
+%%     frame=lines,
+%%     morekeywords={RequirePackage,ProvidesPackage},
+%% %    keywords=[2]{person,household,activities,location,activity,work,location,school,location,home,location,blkgrp,tract,county,state,persons,collection,households,contact,contacts,
+%% %experiment,infection,infections,replicate,cell,disease, model,health,status,health,profile,social,distancing,av,treatment,vaccination,close,work,close,school,intervention,policy,intervention,policies, infected,blockgroup,replicates
+%% %},
+%% %    keywords=[3]{type,of,member,lives,at,performs,between,duration,overlaps,studies,applies,computes,models,with,seed,affects,models,infectivity,susseptibility,transmisibilaty,infector,infectee,day,infection},
+%%  %   keywords=[4]{has,age,gender,zipcode,scheduled,blkgrp},
+%%   %  keywords=[5]{scalar,time,range},
+%%    % keywords=[6]{create,from,where,get,overlap,graph},
+%%     backgroundcolor=\color{background},
+%%     numbers=right, numberstyle=\tiny, breaklines=true, numbersep=5pt,escapechar=\%,
+%% }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Python enviorment
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{10} % for bold
+%\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{10}  % for normal
+
+\definecolor{deepblue}{rgb}{0,0.0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm\color{codegray},
+otherkeywords={self},             % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=none,                         % Any extra options here
+showstringspaces=false,            % 
+backgroundcolor=\transparent{.5}\color{backcodepy},
+breaklines=true,
+postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}}
+
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SQL enviorment
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{forestgreen}{RGB}{34,139,34}
+\definecolor{orangered}{RGB}{239,134,64}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{light-gray}{gray}{0.95}
+\lstdefinestyle{mySQL} {
+    backgroundcolor=\color{backcolour},   
+    language=SQL,
+    extendedchars=true,
+    breakatwhitespace=false,
+    emph={},
+    emphstyle=\color{red},
+    basicstyle=\ttfamily\small,
+    frame=tb,
+    columns=fullflexible,
+    commentstyle=\color{gray}\upshape,
+    morestring=[b]",
+    morecomment=[s]{<?}{?>},
+    morecomment=[s][\color{forestgreen}]{<!--}{-->},
+    keywordstyle=\color{blue}\ttfamily,
+    stringstyle=\ttfamily\color{black}\normalfont,
+    %tagstyle=\color{darkblue}\bf,
+    otherkeywords={attribute=, xmlns=},
+    breaklines=true,                 
+    numbers=none, %other option is left
+    escapechar=\%,
+    rulecolor=\color{backframecolour},
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Verbatim enviorment
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+           stringstyle=\color{codepurple},
+               basicstyle=\ttfamily\color{black}\normalfont,  
+stringstyle=\ttfamily\color{black}\normalfont,  
+    breakatwhitespace=false,         
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,        
+    linewidth=6.00in,
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    breaklines=true,                 
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% XML enviorment
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{forestgreen}{RGB}{34,139,34}
+\definecolor{orangered}{RGB}{239,134,64}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\lstdefinestyle{XML} {
+    language=XML,
+    extendedchars=true,
+    breakatwhitespace=false,
+    emph={},
+    emphstyle=\color{red},
+    basicstyle=\ttfamily,
+    columns=fullflexible,
+    commentstyle=\color{gray}\upshape,
+    morestring=[b]",
+    morecomment=[s]{<?}{?>},
+    morecomment=[s][\color{forestgreen}]{<!--}{-->},
+    keywordstyle=\color{orangered},
+    stringstyle=\ttfamily\color{black}\normalfont,
+    tagstyle=\color{darkblue}\bfseries,
+    morekeywords={attribute,xmlns,version,type,release},
+    otherkeywords={attribute=, xmlns=},
+    breaklines=true,                 
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%IQL enviorment
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lstdefinestyle{IQL} {
+    language=SQL,
+    extendedchars=true,
+    breakatwhitespace=false,
+    emph={},
+    emphstyle=\color{red},
+    basicstyle=\ttfamily,
+    columns=fullflexible,
+    commentstyle=\color{gray}\upshape,
+    morecomment=[s]{<?}{?>},
+    morecomment=[s][\color{forestgreen}]{<!--}{-->},
+    keywordstyle=\color{blue}\ttfamily,
+    stringstyle=\ttfamily\color{black}\normalfont,
+    tagstyle=color{darkblue}\bf,
+    morekeywords={echo, simulation_duration, manage,table, insert},
+    otherkeywords={attribute=, xmlns=},
+    breaklines=true,                 
+    numbers=none,
+    escapechar=\%,
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%Shell enviorment
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lstdefinestyle{myshell} {
+    language=SQL,
+    extendedchars=true,
+    breakatwhitespace=false,
+    emph={},
+    emphstyle=\color{red},
+    basicstyle=\ttfamily,
+    columns=fullflexible,
+    commentstyle=\color{gray}\upshape,
+    morecomment=[s]{<?}{?>},
+    morecomment=[s][\color{forestgreen}]{<!--}{-->},
+    keywordstyle=\color{blue}\ttfamily,
+    stringstyle=\ttfamily\color{black}\normalfont,
+    tagstyle=\color{darkblue}\bf,
+    breaklines=true,                 
+    numbers=none,
+    escapechar=\%,
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
+
+
+
+\lstloadlanguages{sh,python}
+\def\cmdinline{\lstinline[basicstyle=\ttfamily,language=sh,frame=single]}
+%%
+\lstnewenvironment{codepy}
+{\lstset{language=python}}
+{}
+
+
+\newcommand{\question}[1]{\textcolor{blue}{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% caution/warning box
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewenvironment{leftbar}[1][\hsize]%
+{%
+        \def\FrameCommand%
+        {%
+             \includegraphics[width=1cm]{latex_utils/handarrow.png}%           
+             \fboxsep=\FrameSep\colorbox{cyan!5}%
+        }%
+        \MakeFramed{\hsize#1\advance\hsize-\width\FrameRestore}%
+}%
+{\endMakeFramed}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% format for tables
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\rowcolors{2}{gray!25}{pink}
+
+
+

@@ -1,0 +1,48 @@
+* var_dicex_base_dir/dicex/dicex.sh is necessary
+
+*Issues 
+** Random crash
+** crash when using large number of interventions
+** very brittle/naive message passing scheme (severly increases time to implement generic interventions)
+** whenever we try to use it to write papers, do serious things,  it crashes.
+** access to database is serialized
+** known race condition  at startup
+** extermely slow inserts to the database
+
+* Testing (very useful for development)
+** use unit_tests.py to test new replicate config generation utility
+*** first launch a working config file-- go to the working directory on the dbcompute node
+*** from there modify code etc. and then do 
+*** python ~/git_repos/dicex_epistudy/unit_tests.py epistudy_cfg.xml
+
+
+* How is a cell represented
+* From cell to actual configuration
+a cell is an entire xml file
+
+* Somethings to watch out for
+** indemics server port is fixed to 5461
+** Intervention file is build seperately from replicate config file
+
+
+* Launch study step by step
+** Launch a dbsession
+** call postdb.py (check the qsub file in the tmp dir)
+
+
+* Analysis library
+** unify_studycfg_rmos : bring all the records in one table
+** plot_studycfg_rmos_stats_by_grouping
+** To build out the renewed analysis routine --look into pre_analysis_setup_v2
+
+
+* Load external datasets
+** load_model_data_from_edcfg 
+*** keywords
+var_region
+var_metadata_dir
+var_model_dir
+var_model_prefix
+** load_model_data_from_gp_pipeline
+
+

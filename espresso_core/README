@@ -1,0 +1,19 @@
+Download these modules from ndsslgit
+
+1. dicex_common
+2. dicex_pgsa
+3. dicex_edi
+4. git@ndsslgit.vbi.vt.edu:ndssl-software/VERSA.git (switch to branch build_on_dicex)
+5. Indemics 
+
+export PYTHONPATH=<to-all-the-modules>
+
+change the miami_block_study.xml. In particular,
+   study_base_dir
+   edcfg_file
+
+cd <work-dir>
+python <path-to-dicex-epistudy>/workflow.py miami_block_study.xml
+
+
+

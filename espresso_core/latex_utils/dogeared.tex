@@ -1,0 +1,75 @@
+\usetikzlibrary{shapes.geometric}
+
+\makeatletter
+% based on
+% https://raw.githubusercontent.com/Jubobs/gitdags/master/gitdags.sty
+% custom shape, adapted from 102.5.3 in the TikZ 3.0 manual
+\pgfkeys{/tikz/.cd,
+  dogear size/.initial=5pt,
+}
+\pgfdeclareshape{dogeared}{ % or 'document', or 'file'
+  % this is nearly a rectangle
+  \inheritsavedanchors[from=rectangle]
+  \inheritanchorborder[from=rectangle]
+  \inheritanchor[from=rectangle]{center}
+  \inheritanchor[from=rectangle]{north}
+  \inheritanchor[from=rectangle]{south}
+  \inheritanchor[from=rectangle]{west}
+  \inheritanchor[from=rectangle]{east}
+
+  \savedmacro\dogearsize{%
+    \edef\dogearsize{\pgfkeysvalueof{/tikz/dogear size}}%
+  }
+
+  \backgroundpath{% this is new
+    % store lower left in xa/ya and upper right in xb/yb
+    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+    % compute corner of ‘‘flipped page’’ (‘‘dog ear’’)
+    \pgf@xc=\pgf@xb \advance\pgf@xc by-\dogearsize
+    \pgf@yc=\pgf@yb \advance\pgf@yc by-\dogearsize
+    % construct main path
+    \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+    \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+    \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yb}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yc}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+    \pgfpathclose
+  }
+  \foregroundpath{% this is new
+    % store lower left in xa/ya and upper right in xb/yb
+    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+    % compute corner of ‘‘flipped page’’ (‘‘dog ear’’)
+    \pgf@xc=\pgf@xb \advance\pgf@xc by-\dogearsize
+    \pgf@yc=\pgf@yb \advance\pgf@yc by-\dogearsize
+    % construct main path
+    %%
+    % add little corner
+    \pgfpathmoveto{\pgfpoint{\pgf@xc}{\pgf@yb}}
+    \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yc}}
+    \pgfpathclose
+  }
+}
+
+%% based on code in
+%% https://github.com/GuITeX/guidatikzmark/blob/master/pacchetti_comandi/documento.tex
+\pgfkeys{/tikz/.cd,
+  tab height/.initial=3pt,
+  tab width/.initial=10pt,
+  tab slope/.initial=1.5pt,
+  cover xoff/.initial=5pt,
+  cover yoff/.initial=2pt,
+}
+%% Note: use '\setlength{\pgf@xd}{\pgf@xb}' rather than '\pgf@xd=\pgf@xb'
+%% ??? for some reason \pgf@ytt etc. didn't work, but \pgf@yd does
+\newlength\pgf@yd
+\newlength\pgf@xe
+\newlength\pgf@xf
+\newlength\pgf@xg
+\newlength\pgf@yg
+\newlength\pgf@xh
+%% this didn't work
+\newlength\pgf@xo  %% note: \pgf@xx is pre-defined by pgf to mean something
+

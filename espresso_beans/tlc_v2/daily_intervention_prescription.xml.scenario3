@@ -1,0 +1,52 @@
+<intervention_prescription>
+  <background>
+    <setup_stmts>
+      <wstmt>
+        <label>candidate_ascertained</label>
+        <stmt> create view &var_replicate_desc;_ascertained select pid from &var_model_prefix;person_info</stmt>
+      </wstmt>
+      <wstmt>
+        <label>init_intv_status</label>
+        <stmt> insert into &var_replicate_desc;_intv select pid, -1, -1 from &var_replicate_desc;_ascertained</stmt>
+      </wstmt>
+      <wstmt>
+	<label>initialize_day_inf_rate</label>
+	<stmt>insert into &var_replicate_desc;_day_inf_rate values (-1, 0.0, 0)</stmt>
+      </wstmt>
+      <wstmt>
+	<label>initialize_attack_rate_by_day</label>
+	<stmt>insert into &var_replicate_desc;_attack_rate_by_day values (-1, 0.0, 0)</stmt>
+      </wstmt>
+    </setup_stmts>
+
+    <pre_intv_db_stmts>
+      <wstmt>
+        <label>update_day_inf_rate</label>
+        <stmt> insert into &var_replicate_desc;_day_inf_rate select $day, count(pid), count(pid)::float/${iql_popsz} as num_inf from &amp;{diagnosed table} d where time &lt;= $day</stmt>
+      </wstmt>
+      <wstmt>
+        <label>update_attack_rate_by_day</label>
+        <stmt> insert into &var_replicate_desc;_attack_rate_by_day select $day, sum(num_infected) as num_infected, count(num_infected)::float/${region_popsz} as attack_rate from &var_replicate_desc;_day_inf_rate  where day &lt;= $day</stmt>
+      </wstmt>
+
+    </pre_intv_db_stmts>
+    <intv_stmts>
+            <wstmt>
+	<label>intervene_workers</label>
+      <stmt>0,${i0_class},${i0_type},${i0_compliance},${i0_duration},${i0_delay},${i0_efficacy_in},${i0_efficacy_out}, select pid from &var_model_prefix;person_info limit 10</stmt>
+      </wstmt>
+      <wstmt>
+        <label>worker_distancing_at_work</label>
+        <trigger>
+          <on help="continious variable on which the triggred is set">attack_rate_by_day</on>
+          <start_threshold>0.00005</start_threshold>
+          <trigger_inertia>10</trigger_inertia>
+          <stop_threshold>0.00001</stop_threshold>
+        </trigger>
+        <stmt>9,${i9_class},${i9_type},${i9_compliance},${i9_duration},${i9_delay},1.0#${i9_distancing_factor}#1.0#1.0#1.0,1.0#${i9_distancing_factor}#1.0#1.0#1.0,501</stmt>
+      </wstmt>
+     </intv_stmts>
+    <post_intv_db_stmts></post_intv_db_stmts>
+  </background>
+</intervention_prescription>
+

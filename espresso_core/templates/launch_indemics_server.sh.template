@@ -1,0 +1,14 @@
+export SIMDMCONF=${cfg_fn}
+export SIMDMCONFDIR=${study_dir}
+
+SIMDM_ROOT=${indemics_dir}
+SIMDM_LIB=${SIMDM_ROOT}/library
+SIMDM_JAR=${SIMDM_ROOT}/release/Indemics_server.jar
+CLASSPATH=${CLASSPATH}:${SIMDM_LIB}/classes12.jar:${SIMDM_LIB}/c3p0-0.9.5-pre6.jar:${SIMDM_LIB}/mchange-commons-java-0.2.6.3.jar:${SIMDM_LIB}/log4j-1.2.16.jar:${SIMDM_LIB}/postgresql-9.2-1003.jdbc4.jar:${SIMDM_JAR}:${SIMDM_ROOT}/postgresql.jar
+
+
+cd ${study_dir}
+nohup java -Xmx32g -cp ${CLASSPATH} edu.vt.ndssl.simdm.server.SimServer -DSIMDMCONFDIR=${study_dir}/conf -DSIMDMLOG=${study_dir}/ -DBUSER ${user} -DBPWD 2>server.cerr >server.log &
+cd -
+
+

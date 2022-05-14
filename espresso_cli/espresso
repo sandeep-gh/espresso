@@ -1,0 +1,24 @@
+cmd1=$1
+
+dicex_epistudy_cfg_dir=`dirname $0`
+if [[ "$cmd1" == "init" ]]
+then
+    shift
+    ufi.sh $@
+elif [[ "$cmd1" == "session" ]]
+then 
+    shift
+    gen_system_cfg.sh "$@"
+elif [[ "$cmd1" == "model" ]]
+then
+    shift
+    gen_model_cfg.sh "$@"
+elif [[ "$cmd1" == "doe" ]]
+then
+    shift 
+    gen_doe_cfg.sh "$@"
+elif [[ "$cmd1" == "analyze" ]]
+then
+    shift
+    python ${dicex_epistudy_cfg_dir}/analysis_main.py "$@"
+fi

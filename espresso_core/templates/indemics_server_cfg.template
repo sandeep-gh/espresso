@@ -1,0 +1,13 @@
+# SimDM parameters settings
+database url = jdbc:postgresql://${coord_ip_address}:${port}/postgres
+end of text = ~~
+data delimiter = ,
+message delimiter = :
+server name = INDEMICS_HOSTNAME
+game socket port = 5461
+simulation socket port = 3007
+max query results to display = 785855
+timed = true
+max_threads = ${max_threads}
+dbhost = ${coord_ip_address}
+dbport = ${port}

@@ -1,0 +1,8 @@
+InterventionVersion = 2010
+InterventionId = 1
+InterventionName = IndemicsIntervention
+InterventionDescription = "online user intervention through Indemics"
+InterventionType = Online
+IndemicsServerAddress = ${indemics_server_ipaddr}:3007
+SimulationDescription = ${replicate_desc}
+

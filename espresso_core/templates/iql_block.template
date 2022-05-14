@@ -1,0 +1,24 @@
+echo "set player id: ndssl,ndssl"
+
+echo "select session: session = ${replicate_desc}, super player"
+echo "manage table : create index ${replicate_desc}_diag_pid_idx on &{diagnosed table} (pid)"
+
+echo "manage table : insert into ${replicate_desc}_block_intervened select bid, persons, -1 from block_intervened"
+
+
+for(( i=0; i < ${simulation_duration} ; i++ ))
+do
+
+	echo "manage table: insert into ${replicate_desc}_block_daily_diag_count select b.block, count(b.pid), $i from block_info b, &{diagnosed table} d where time = $i and  b.pid = d.pid group by block"
+
+
+        echo "manage table: insert into ${replicate_desc}_block_win_diag_count select bid, sum(infections), $i from ${replicate_desc}_block_daily_diag_count  where day between `expr $i - 6` and $i group by bid"
+
+	 echo "manage table: update ${replicate_desc}_block_intervened set intervened = $i from (select s.bid from ${replicate_desc}_block_win_diag_count s, ${replicate_desc}_block_intervened i where day = $i and (s.infections::float/i.persons > 0.05) and s.bid=i.bid) AS O where intervened = -1 and ${replicate_desc}_block_intervened.bid=O.bid"
+
+	echo "set interventions:  0,${i0_type},${i0_efficacy_in},${i0_efficacy_out},${i0_compliance},${i0_duration},${i0_delay}, select pid from block_info b, ${replicate_desc}_block_intervened i where b.block=i.bid and i.intervened = $i"
+
+done
+
+echo "stop session:"
+echo "stop client:"

@@ -1,0 +1,13 @@
+* [2017-05-31 Wed 12:42] Summer of 2017
+** intv_base_dataset_edcfg
+** replicate_tables.scenario
+** daily_intervention_prescription.xml
+** study_params.xml.scenario
+** cell_cfg.xml.scenario
+** doe_domain_param.xml
+** ef_cfg.xml.scenario
+** post_setup_config.xml
+
+* subpops
+** students and workers
+** register subpop with epifast

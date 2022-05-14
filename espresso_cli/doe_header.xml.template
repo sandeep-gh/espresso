@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE epistudy [
+	  $common_header
+	  <!ENTITY var_sid "$pvar_sid">
+	  <!ENTITY var_region "$pvar_region">
+	  <!ENTITY var_study "$pvar_study">
+	  <!ENTITY var_scenario "$pvar_scenario">
+	  <!ENTITY var_epifast_exec_path "$pvar_epifast_exec_path"> 
+	  <!ENTITY var_mpi_module "$pvar_mpi_module"> 
+	  <!ENTITY var_epifast_walltime "$pvar_epifast_walltime">
+	  <!ENTITY var_epifast_num_nodes "$pvar_epifast_num_nodes">
+	  <!ENTITY var_epifast_host_type "$pvar_epifast_host_type">
+	  <!ENTITY var_simulation_duration "$pvar_simulation_duration">
+	  <!ENTITY var_num_replicates "$pvar_num_replicates">
+	  <!ENTITY var_doe_type "$pvar_doe_type">
+	  <!ENTITY var_lhs_num_samples "$pvar_lhs_num_samples">
+
+<!ENTITY var_model_id "$pvar_model_id">
+<!ENTITY var_labeling "$pvar_labeling">
+<!ENTITY var_launcher_type "$pvar_launcher_type">
+<!ENTITY var_setup_dry_run "$pvar_setup_dry_run">
+<!ENTITY var_epifast_dry_run "$pvar_epifast_dry_run">
+<!ENTITY var_dry_run_iconductor "$pvar_dry_run_iconductor">
+
+
+	  
+	  <!--
+	      defined relative to base dir
+	    -->
+	  $common_model_header
+	  $study_directives
+	  ]>

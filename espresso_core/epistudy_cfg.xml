@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE epistudy [
+	  <!ENTITY var_region "Miami">
+	  <!ENTITY var_cfg_dir "/home/pgxxc/public/epistudy_configs/">
+	  <!ENTITY var_study_run_dir "/home/sichao/test_flat_doe">
+	  <!ENTITY var_intv_type "tlc">
+	  <!ENTITY var_dicex_base_dir "/home/pgxxc/public">
+	  <!ENTITY var_metadata_dir "/groups/NDSSL/dicex_metadata_repo/">
+	  <!ENTITY var_model_base_dir "/groups/NDSSL/indemics_using_pgxc/">
+	  ]>
+
+<epistudy>
+  <title>&var_region;_&var_intv_type;</title>
+  <region>&var_region;</region>
+  <!--
+      study_base_dir : is the location of all your studies e.g. ~/experiments/studies.
+      study_dir : is the location of this study e.g. ~/experiments/studies/tlc/
+      for now using the same for both
+    -->
+  <study_base_dir>&var_study_run_dir;</study_base_dir>
+  <study_dir>&var_study_run_dir;</study_dir>
+  <epistudy_config_base_dir>&var_cfg_dir;</epistudy_config_base_dir>
+  <epistudy_config_dir>&var_cfg_dir;/&var_intv_type;</epistudy_config_dir>
+  <iql_template>&var_cfg_dir;/&var_intv_type;/iql_&var_intv_type;.template</iql_template> 
+  <model_dir>&var_model_base_dir;/&var_region;</model_dir>
+  <metadata_dir>&var_metadata_dir;</metadata_dir>
+
+  
+  <model_data>
+    <edcfg_file>&var_cfg_dir;/&var_intv_type;/intv_base_dataset_edcfg.xml</edcfg_file>
+  </model_data>
+
+  <iql_parameters>
+    <iql_popsz>9047574</iql_popsz>
+    <iql_intv_trigger_threshold>0.01</iql_intv_trigger_threshold>
+    <sid>0</sid>
+  </iql_parameters>
+
+  <interventions>
+    <intervention0>
+      <iql_key>i0</iql_key>
+      <type>3</type>
+      <compliance>1.0</compliance>
+      <duration>300</duration>
+      <delay>1</delay>
+      <efficacy_in>0.1</efficacy_in>
+      <efficacy_out>0.1</efficacy_out>
+      <daysill>6</daysill>
+      <ascertain>0.6</ascertain>
+    </intervention0>
+    <intervention1>
+      <iql_key>i1</iql_key>
+      <type>1</type>
+      <compliance>1.0</compliance>
+      <duration>7</duration>
+      <delay>1</delay>
+      <efficacy_in>0.1</efficacy_in>
+      <efficacy_out>0.1</efficacy_out>
+      <daysill>6</daysill>
+    </intervention1>
+    <intervention2>
+      <iql_key>i2</iql_key>
+      <type>0</type>
+      <compliance>1.0</compliance>
+      <duration>300</duration>
+      <delay>7</delay>
+      <efficacy_in>0.1</efficacy_in>
+      <efficacy_out>0.1</efficacy_out>
+      <daysill>6</daysill>
+    </intervention2>
+    <intervention3>
+      <iql_key>i3</iql_key>
+      <type>4</type>
+      <compliance>1.0</compliance>
+      <duration>300</duration>
+      <delay>7</delay>
+      <efficacy_in>0.1</efficacy_in>
+      <efficacy_out>0.1</efficacy_out>
+      <daysill>6</daysill>
+    </intervention3>
+    <intervention4>
+      <iql_key>i4</iql_key>
+      <type>7</type>
+      <compliance>1.0</compliance>
+      <duration>300</duration>
+      <delay>1</delay>
+      <efficacy_in>0.1</efficacy_in>
+      <efficacy_out>0.1</efficacy_out>
+      <daysill>6</daysill>
+    </intervention4>
+    <intervention5>
+      <iql_key>i5</iql_key>
+      <type>0</type>
+      <compliance>1.0</compliance>
+      <duration>300</duration>
+      <delay>1</delay>
+      <efficacy_in>0.1</efficacy_in>
+      <efficacy_out>0.1</efficacy_out>
+      <daysill>6</daysill>
+    </intervention5>
+    <intervention6>
+      <iql_key>i6</iql_key>
+      <type>7</type>
+      <compliance>1.0</compliance>
+      <duration>300</duration>
+      <delay>1</delay>
+      <efficacy_in>0.1</efficacy_in>
+      <efficacy_out>0.1</efficacy_out>
+      <daysill>6</daysill>
+    </intervention6>
+    <intervention7>
+      <iql_key>i7</iql_key>
+      <type>7</type>
+      <compliance>1.0</compliance>
+      <duration>300</duration>
+      <delay>1</delay>
+      <efficacy_in>0.1</efficacy_in>
+      <efficacy_out>0.1</efficacy_out>
+      <daysill>6</daysill>
+    </intervention7>
+    <intervention8>
+      <iql_key>i8</iql_key>
+      <type>7</type>
+      <compliance>1.0</compliance>
+      <duration>300</duration>
+      <delay>1</delay>
+      <efficacy_in>0.1</efficacy_in>
+      <efficacy_out>0.1</efficacy_out>
+      <daysill>6</daysill>
+    </intervention8>
+    
+  </interventions>
+
+
+  <post_study_end>
+    <analysis>
+      
+    </analysis>
+  </post_study_end>
+
+  <doe>
+    	<pre_intv_begin>
+	  <create_table>
+            <metadata>&var_metadata_dir;/infections.md</metadata>
+            <index_column>day</index_column>
+          </create_table>
+	  <create_table>
+	    <metadata>&var_metadata_dir;/generic_pid_health.md</metadata>
+	    <model_name>sick_workers</model_name>
+	    <index_column>pid</index_column>
+	  </create_table>
+	  <create_table>
+	    <metadata>&var_metadata_dir;/generic_pid_health.md</metadata>
+	    <model_name>sick_students</model_name>
+	    <index_column>pid</index_column>
+	  </create_table>
+	  <create_table>
+	    <metadata>&var_metadata_dir;/generic_pid_group.md</metadata>
+	    <model_name>workers</model_name>
+	    <index_column>pid</index_column>
+	  </create_table>
+	  <create_table>
+	    <metadata>&var_metadata_dir;/generic_pid_group.md</metadata>
+	    <model_name>students</model_name>
+	    <index_column>pid</index_column>
+	  </create_table>
+	  <create_table>
+	    <metadata>&var_metadata_dir;/generic_pid_group.md</metadata>
+	    <model_name>ascertained</model_name>
+	    <index_column>pid</index_column>
+	  </create_table>
+	  <create_table>
+	    <metadata>&var_metadata_dir;/generic_pid_intv.md</metadata>
+	    <model_name>intv</model_name>
+	    <index_column>day</index_column>
+	  </create_table>
+	  <create_table>
+	    <metadata>&var_metadata_dir;/day_inf_rate.md</metadata>
+	    <model_name>day_inf_rate</model_name>
+	    <index_column>day</index_column>
+	  </create_table>
+	</pre_intv_begin>
+	<domain>
+		<sweep>
+		  <parameter>intervention0/compliance</parameter>
+		  <abbrv>c0</abbrv>
+		  <type>strided</type>
+		  <start_val>0.1</start_val>
+		  <inc>0.2</inc>
+		  <end_val>0.8</end_val>	  
+		</sweep>
+		<sweep>
+		  <parameter>iql_parameters/iql_intv_trigger_threshold</parameter>
+		  <abbrv>th</abbrv>
+		  <type>strided</type>
+		  <start_val>0.0001</start_val>
+		  <inc>0.0003</inc>
+		  <end_val>0.0009</end_val>
+		</sweep>	      
+		<sweep>
+		  <parameter>replicate</parameter>
+		  <abbrv>r</abbrv>
+		  <type>strided</type>
+		  <start_val>0</start_val>
+		  <inc>1</inc>
+		  <end_val>2</end_val>
+		</sweep>
+	</domain>
+  </doe>
+
+  <epifast>
+    <socnet_path>&var_model_base_dir;/&var_region;/socialnet/EFIG6Bb</socnet_path>
+    <num_nodes>4</num_nodes>
+    <walltime>2</walltime>
+    <Diagnosis> 
+      <ModelVersion>2009</ModelVersion>
+      <ProbSymptomaticToHospital>1.0</ProbSymptomaticToHospital>
+      <ProbDiagnoseSymptomatic>0.667</ProbDiagnoseSymptomatic>
+      <DiagnosedDuration>6</DiagnosedDuration>
+    </Diagnosis>
+    <transmissibility>0.0000535</transmissibility>
+    <asymptomatic_probability>0.3333</asymptomatic_probability>
+    <asymptomatic_factor>0.5</asymptomatic_factor>
+    <simulation_duration>300</simulation_duration>
+  </epifast>
+
+  <system>
+    <template_dir>templates</template_dir>  
+    <dicex_base_dir>&var_dicex_base_dir;</dicex_base_dir>
+    <indemics_dir>&var_dicex_base_dir;/indemics_server</indemics_dir>
+  </system>
+
+
+  <data_engine>
+    <engine_type>pgsa</engine_type>
+    <dbsession>&var_region;_&var_intv_type;</dbsession>
+    <walltime>40</walltime>
+  </data_engine>
+
+  <indemics_server>
+    <max_threads>8</max_threads>
+    <walltime>40</walltime>
+  </indemics_server>
+  
+  <doe>
+
+  </doe>
+</epistudy>
+

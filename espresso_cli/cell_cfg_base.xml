@@ -1,0 +1,65 @@
+<root xmlns:xi="http://www.w3.org/2001/XInclude">
+<epistudy> 
+  <xi:include href="&var_session_run_dir;/&var_model_id;_model.xml" parse="xml"/>
+  <xi:include href="&var_cfg_dir;/cell_cfg.xml.&var_scenario;" parse="xml"/> 
+    
+  <title>&var_region;_&var_study;_&var_scenario;_sid_&var_sid;</title>
+  <study_base_dir>&var_session_run_dir;</study_base_dir>
+  <study_dir>&var_session_run_dir;</study_dir>
+  <iql_template>&var_cfg_dir;/iql_&var_scenario;.&var_devel;template</iql_template> 
+    <intervention_prescription_config_file>&var_cfg_dir;/daily_intervention_prescription.xml.&var_scenario;</intervention_prescription_config_file> 
+    <doe>
+      <epifast_dry_run>&var_epifast_dry_run;</epifast_dry_run>
+      <setup_dry_run>&var_setup_dry_run;</setup_dry_run>
+      <dry_run_iconductor>&var_dry_run_iconductor;</dry_run_iconductor>
+      <labeling>&var_labeling;</labeling>
+      <launcher_type>&var_launcher_type;</launcher_type>
+      ${study_schema_xml}
+    <pre_intv_begin>
+      <create_table>
+        <metadata>&var_metadata_dir;/day_tracker.md</metadata>
+      </create_table>
+      <create_orm>
+	<metadata>&var_metadata_dir;/diagnosed.md</metadata>
+      </create_orm>
+      <create_orm>
+	<metadata>&var_metadata_dir;/infection_trace.md</metadata>
+      </create_orm>
+      ${replicate_tables_xml}
+
+    </pre_intv_begin>
+    ${study_params_xml}
+    <domain>
+    <sweep>
+      <parameter>run/sid</parameter>
+      <abbrv>sid</abbrv>
+      <type>singleton</type>
+      <value>&var_sid;</value>
+    </sweep>
+    ${doe_domain_param_xml}
+    <sweep>
+      <parameter>run/replicate</parameter>
+      <abbrv>rep</abbrv>
+      <type>strided</type>
+      <start_val>0</start_val>
+      <inc>1</inc>
+      <end_val>&var_num_replicates;</end_val>
+    </sweep>
+    </domain>
+   <design>
+   <type>&var_doe_type;</type>
+   <num_samples>&var_lhs_num_samples;</num_samples>
+   </design>
+
+  </doe>
+
+
+  ${ef_cfg_xml}
+  <run>
+    <sid>&var_sid;</sid>
+    <replicate>0</replicate>
+  </run>
+  ${post_setup_config_xml}
+</epistudy>
+</root>
+

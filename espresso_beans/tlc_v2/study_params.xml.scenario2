@@ -1,0 +1,8 @@
+<study_params>
+    <iql_popsz>9047574</iql_popsz>
+    <iql_intv_trigger_threshold>0.01</iql_intv_trigger_threshold>
+        <take_pill_delay>5</take_pill_delay>    
+</study_params>
+<dynamic_study_params>
+<take_pill_delay>&#36;day - &#36;i0_daysill</take_pill_delay>
+</dynamic_study_params>
